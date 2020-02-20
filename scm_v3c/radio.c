@@ -29,7 +29,7 @@ signed short cdr_tau_history[11] = {0};
 //===== default crc check result and rssi value
 
 #define DEFAULT_CRC_CHECK        01     // this is an arbitrary value for now
-#define DEFAULT_RSSI            -50     // this is an arbitrary value for now
+#define DEFAULT_RSSI            -83     // this is an arbitrary value for now
 #define DEFAULT_FREQ             11     // use the channel 11 for now
 
 //===== for calibration
@@ -230,7 +230,9 @@ void radio_getReceivedFrame(uint8_t* pBufRead,
                             uint8_t* pLqi) {
    
     //===== rssi
-    *pRssi          = DEFAULT_RSSI;
+    *pRssi          = read_RSSI();
+                                
+    *pLqi           = read_LQI();
     
     //===== length
     *pLenRead       = radio_vars.radio_rx_buffer[0];

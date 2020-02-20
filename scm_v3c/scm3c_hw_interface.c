@@ -845,7 +845,11 @@ void radio_init_rx_MF(){
     // Enable both polyphase and mixers via memory mapped IO (...001 = 0x1)
     // To disable both you would invert these values (...110 = 0x6)
     ANALOG_CFG_REG__16 = 0x1;
-        
+    
+    set_asc_bit(271);
+    set_asc_bit(491);
+    
+    ANALOG_CFG_REG__15 = 0x4040;
 }
 
 // Must set IF clock frequency AFTER calling this function
@@ -1052,7 +1056,7 @@ unsigned int read_LQI(){
 // Read RSSI - the gain control settings
 
 unsigned int read_RSSI(){
-    return ANALOG_CFG_REG__15 & 0xF;
+    return ANALOG_CFG_REG__15 & 0x3F;
 }
 
 // set IF clock frequency

@@ -133,7 +133,7 @@ int main(void) {
     while(1){
         
         // loop through all configuration
-        for (app_vars.cfg_coarse=0;app_vars.cfg_coarse<STEPS_PER_CONFIG;app_vars.cfg_coarse++){
+        for (app_vars.cfg_coarse=23;app_vars.cfg_coarse<25;app_vars.cfg_coarse++){
             for (app_vars.cfg_mid=0;app_vars.cfg_mid<STEPS_PER_CONFIG;app_vars.cfg_mid++){
                 for (app_vars.cfg_fine=0;app_vars.cfg_fine<STEPS_PER_CONFIG;app_vars.cfg_fine++){
 //                    printf(
@@ -144,6 +144,7 @@ int main(void) {
                         while(app_vars.rxFrameStarted == true);
                         radio_rfOff();
                         LC_FREQCHANGE(app_vars.cfg_coarse,app_vars.cfg_mid,app_vars.cfg_fine);
+                        LC_FREQCHANGE(23,17,6);
                         radio_rxEnable();
                         radio_rxNow();
                         rftimer_setCompareIn(rftimer_readCounter()+TIMER_PERIOD);
@@ -187,7 +188,7 @@ void    cb_endFrame_rx(uint32_t timestamp){
         app_vars.LQI_chip_errors    = radio_getLQIchipErrors();
         
         printf(
-            "pkt received on ch%d %c%c%c%c.%d.%d.%d\r\n",
+            "pkt received on ch%d %c%c%c%c.%d.%d.%d rssi=%d\r\n",
             app_vars.packet[4],
             app_vars.packet[0],
             app_vars.packet[1],
@@ -195,7 +196,8 @@ void    cb_endFrame_rx(uint32_t timestamp){
             app_vars.packet[3],
             app_vars.cfg_coarse,
             app_vars.cfg_mid,
-            app_vars.cfg_fine
+            app_vars.cfg_fine,
+            app_vars.rxpk_rssi
         );
         
         app_vars.packet_len = 0;
