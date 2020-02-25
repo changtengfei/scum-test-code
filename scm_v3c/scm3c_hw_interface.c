@@ -849,7 +849,7 @@ void radio_init_rx_MF(){
     set_asc_bit(271);
     set_asc_bit(491);
     
-    ANALOG_CFG_REG__15 = 0x4040;
+    ANALOG_CFG_REG__15 = 0xE040;
 }
 
 // Must set IF clock frequency AFTER calling this function
